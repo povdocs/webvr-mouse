@@ -1,3 +1,9 @@
+/**
+ * @author bchirls / http://chirls.com/
+ * Copyright (c) 2014 American Documentary Inc.
+ * License: MIT http://opensource.org/licenses/mit-license.php
+ */
+
 THREE.VRMouse = function( origin, targets, options ) {
 	var self = this;
 
