@@ -76,7 +76,6 @@ THREE.VRMouse = function( origin, targets, options ) {
 			self.update();
 		} else {
 			locked = false;
-			//console.log('mouseMove', pointerLockElement);
 		}
 	}
 

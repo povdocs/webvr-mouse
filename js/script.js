@@ -113,11 +113,9 @@
 			near: 1,
 			onMouseOver: function (obj) {
 				console.log('hover', obj);
-				//obj.material.color.offsetHSL(0, -1, 0);
 			},
 			onMouseOut: function (obj) {
 				console.log('stop hover', obj);
-				//obj.material.color.offsetHSL(0, 1, 0);
 			},
 			onClick: function (intersection) {
 				var box = new THREE.Mesh( boxGeo,
