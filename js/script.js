@@ -59,7 +59,7 @@
 		head.position.z = initialCameraPosition.z;
 		scene.add(head);
 
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, FOG * 2 + 1);
+		camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, FOG * 2 + 1);
 		head.add(camera);
 
 		// BOXEN
