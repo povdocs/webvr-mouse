@@ -36,9 +36,6 @@ THREE.VRMouse = function( origin, targets, options ) {
 	var onMouseDown = options.onMouseDown;
 	var onMouseUp = options.onMouseUp;
 
-	var longitude = 0;
-	var latitude = 0;
-
 	//var projector = new THREE.Projector();
 	var raycaster = new THREE.Raycaster();
 	var mouseVector = new THREE.Vector3(0, 0, 1);
