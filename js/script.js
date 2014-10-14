@@ -91,7 +91,7 @@
 
 		// BOXEN
 		var boxGeo = new THREE.BoxGeometry(1, 1, 1);
-		for (var i = 0; i < 20; i++) {
+		for (var i = 0; i < 40; i++) {
 			var box = new THREE.Mesh( boxGeo,
 				new THREE.MeshLambertMaterial({
 					color: (new THREE.Color()).setHSL(Math.random(), 0.7, 0.25)
@@ -146,15 +146,10 @@
 		var floor = new THREE.Mesh(
 			new THREE.CircleGeometry(FOG / 8, 32),
 			new THREE.MeshPhongMaterial({
-				// ambient: 0xccb799, //0xffffff,
-				// color: 0xccb799, //0xffffff,
 				color: 0x999999,
 				specular: 0x111111,
 
 				shininess: 100,
-				// map: floorTexture,
-				// lightMap: floorTexture,
-				// specularMap: floorTexture,
 				shading: THREE.SmoothShading
 			})
 		);
@@ -169,6 +164,7 @@
 			new THREE.MeshNormalMaterial()
 		);
 		sphere.position.set( 0, 10, 4 );
+		sphere.name = 'sphere';
 		scene.add( sphere );
 		pickTargets.push( sphere );
 
