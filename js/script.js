@@ -22,6 +22,10 @@
 			right: false
 		},
 
+		lookTarget = new THREE.Vector3(),
+		lookLatitude = 0,
+		lookLongitude = -Math.PI / 2,
+
 		pickTargets = [],
 
 		vrButton = document.getElementById('vr'),
@@ -37,7 +41,30 @@
 	};
 
 	function animate() {
-		var delta = clock.getDelta();
+		var delta = clock.getDelta(),
+			cos;
+
+		if (keys.left) {
+			moving = true;
+			lookLongitude -= Math.PI * delta / 10;
+		} else if (keys.right) {
+			moving = true;
+			lookLongitude += Math.PI * delta / 10;
+		}
+
+		if (keys.forward) {
+			moving = true;
+			lookLatitude = Math.min(0.8 * Math.PI / 2, lookLatitude + Math.PI * delta / 10);
+		} else if (keys.backward) {
+			moving = true;
+			lookLatitude = Math.max(-0.8 * Math.PI / 2, lookLatitude - Math.PI * delta / 10);
+		}
+
+		lookTarget.y = Math.sin(lookLatitude);
+		cos = Math.cos(lookLatitude);
+		lookTarget.x = cos * Math.cos(lookLongitude);
+		lookTarget.z = cos * Math.sin(lookLongitude);
+		camera.lookAt(lookTarget);
 
 		//vrMouse.update(); //only need this if the world is animating
 		vrControls.update();
@@ -86,11 +113,9 @@
 			near: 1,
 			onMouseOver: function (obj) {
 				console.log('hover', obj);
-				//obj.material.color.offsetHSL(0, -1, 0);
 			},
 			onMouseOut: function (obj) {
 				console.log('stop hover', obj);
-				//obj.material.color.offsetHSL(0, 1, 0);
 			},
 			onClick: function (intersection) {
 				var box = new THREE.Mesh( boxGeo,
