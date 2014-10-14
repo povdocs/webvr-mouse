@@ -36,7 +36,7 @@ THREE.VRMouse = function( origin, targets, options ) {
 	var onMouseDown = options.onMouseDown;
 	var onMouseUp = options.onMouseUp;
 
-	//var projector = new THREE.Projector();
+	var mouseLat = 0, mouseLon = Math.PI / 2;
 	var raycaster = new THREE.Raycaster();
 	var mouseVector = new THREE.Vector3(0, 0, 1);
 	var scratchVector = new THREE.Vector3();
@@ -54,6 +54,7 @@ THREE.VRMouse = function( origin, targets, options ) {
 
 	function mouseMove(e) {
 		var dx, dy,
+			cos,
 			pointerLockElement;
 
 		if ( frozen ) {
@@ -69,10 +70,14 @@ THREE.VRMouse = function( origin, targets, options ) {
 			dx = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
 			dy = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
 
-			mouseVector.applyAxisAngle(horizontal, dx * Math.PI / 1800);
-			//mouseVector.applyAxisAngle(vertical, dy * Math.PI / 180);
-			mouseVector.y -= dy / 100;
-			mouseVector.normalize();
+			mouseLat -= dy * Math.PI / 1800;
+			mouseLon += dx * Math.PI / 1800;
+			mouseLat = Math.min(Math.PI / 2, Math.max(-Math.PI / 2, mouseLat));
+
+			mouseVector.y = Math.sin(mouseLat);
+			cos = Math.cos(mouseLat);
+			mouseVector.x = cos * Math.cos(mouseLon);
+			mouseVector.z = cos * Math.sin(mouseLon);
 			self.update();
 		} else {
 			locked = false;
