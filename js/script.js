@@ -45,18 +45,14 @@
 			cos;
 
 		if (keys.left) {
-			moving = true;
 			lookLongitude -= Math.PI * delta / 10;
 		} else if (keys.right) {
-			moving = true;
 			lookLongitude += Math.PI * delta / 10;
 		}
 
 		if (keys.forward) {
-			moving = true;
 			lookLatitude = Math.min(0.8 * Math.PI / 2, lookLatitude + Math.PI * delta / 10);
 		} else if (keys.backward) {
-			moving = true;
 			lookLatitude = Math.max(-0.8 * Math.PI / 2, lookLatitude - Math.PI * delta / 10);
 		}
 
