@@ -35,6 +35,7 @@ THREE.VRMouse = function( origin, targets, options ) {
 	var onClick = options.onClick;
 	var onMouseDown = options.onMouseDown;
 	var onMouseUp = options.onMouseUp;
+	var onMouseMove = options.onMouseMove;
 
 	var mouseLat = 0, mouseLon = Math.PI / 2;
 	var raycaster = new THREE.Raycaster();
@@ -79,13 +80,28 @@ THREE.VRMouse = function( origin, targets, options ) {
 			mouseVector.x = cos * Math.cos(mouseLon);
 			mouseVector.z = cos * Math.sin(mouseLon);
 			self.update();
+			if (onMouseMove) {
+				onMouseMove(intersection);
+			}
 		} else {
 			locked = false;
 		}
 	}
 
 	function mouseDown() {
+		self.update();
+		if (!frozen && locked) {
+			onMouseDown(intersection);
+			self.update();
+		}
+	}
 
+	function mouseUp() {
+		self.update();
+		if (!frozen && locked) {
+			onMouseUp(intersection);
+			self.update();
+		}
 	}
 
 	function click() {
@@ -113,9 +129,14 @@ THREE.VRMouse = function( origin, targets, options ) {
 	document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
 
 	element.addEventListener('mousemove', mouseMove, false);
-	element.addEventListener('mousedown', mouseDown, false);
 	if (onClick) {
 		element.addEventListener('click', click, false);
+	}
+	if (onMouseDown) {
+		element.addEventListener('mousedown', mouseDown, false);
+	}
+	if (onMouseUp) {
+		element.addEventListener('mouseup', mouseUp, false);
 	}
 
 	Object.defineProperty(self, 'fixedDistance', {
