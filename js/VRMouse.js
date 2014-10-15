@@ -41,6 +41,7 @@ THREE.VRMouse = function( origin, targets, options ) {
 	var raycaster = new THREE.Raycaster();
 	var mouseVector = new THREE.Vector3(0, 0, 1);
 	var scratchVector = new THREE.Vector3();
+	var originPosition = new THREE.Vector3();
 	var worldNormal = new THREE.Vector3();
 
 	//var mouseX = 0, mouseY = 0;
@@ -164,9 +165,9 @@ THREE.VRMouse = function( origin, targets, options ) {
 					self.pointer.lookAt( scratchVector );
 				} else {
 					//scale scratchVector (normalized mouse vector) and use it for cursor position
-					scratchVector.multiplyScalar( Math.max(near, fixedDistance || rest) ).add( origin.position );
+					scratchVector.multiplyScalar( Math.max(near, fixedDistance || rest) ).add( originPosition );
 					self.pointer.position.copy( scratchVector );
-					self.pointer.lookAt( origin.position );
+					self.pointer.lookAt( originPosition );
 				}
 			}
 		}
@@ -175,9 +176,12 @@ THREE.VRMouse = function( origin, targets, options ) {
 			return;
 		}
 
+		originPosition.copy( origin.position );
+		origin.localToWorld( originPosition );
+
 		scratchVector.copy( mouseVector );
 		scratchVector.normalize();
-		raycaster.set( origin.position, scratchVector );
+		raycaster.set( originPosition, scratchVector );
 
 		var intersects = raycaster.intersectObjects( targets );
 		var oldTarget;
@@ -226,6 +230,23 @@ THREE.VRMouse = function( origin, targets, options ) {
 
 	this.unfreeze = function () {
 		frozen = false;
+		this.update();
+	};
+
+	this.center = function () {
+		var position = new THREE.Vector3();
+		var quaternion = new THREE.Quaternion();
+		var scale = new THREE.Vector3();
+		var cos;
+
+		origin.updateMatrixWorld( true );
+		origin.matrixWorld.decompose( position, quaternion, scale );
+
+		mouseVector.set( 0, 0, -1 ).applyQuaternion( quaternion );
+		mouseLat = Math.asin( mouseVector.y );
+		cos = Math.cos( mouseLat );
+		mouseLon = Math.acos( mouseVector.x / cos);
+
 		this.update();
 	};
 

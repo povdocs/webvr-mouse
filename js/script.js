@@ -154,7 +154,7 @@
 			pickTargets.push(box);
 		}
 
-		vrMouse = new THREE.VRMouse( head, pickTargets, {
+		vrMouse = new THREE.VRMouse( camera, pickTargets, {
 			element: renderer.domElement,
 			near: 1,
 			onMouseOver: function (obj) {
