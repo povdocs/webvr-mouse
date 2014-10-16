@@ -40,26 +40,6 @@
 				z-index: 2;
 			}
 
-			#timeline {
-				width: 600px;
-				position: relative;
-				display: inline-block;
-				height: 10px;
-				cursor: pointer;
-				background-color: rgba(0, 0, 0, 0.6);
-			}
-
-			#progress {
-				position: absolute;
-				left: 0;
-				top: 0;
-				width: 20%;
-				height: 100%;
-				pointer-events: none;
-				background-color: rgba(200, 200, 200, 0.6);
-			}
-
-
 			#info {
 				z-index: 100;
 				position: absolute;
@@ -111,9 +91,6 @@
 	<body>
 		<div id="controls">
 			<button id="vr" disabled>VR</button>
-			<div id="timeline" style="display: none;">
-				<div id="progress"></div>
-			</div>
 		</div>
 		<div id="info">
 			<svg version="1.1" id="infobutton" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="112px" height="112px" viewBox="0 0 112 112" enable-background="new 0 0 112 112" xml:space="preserve">
