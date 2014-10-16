@@ -66,12 +66,13 @@
 	}
 
 	function stopMoving() {
+		updatePosition();
 		if (!keys.w && !keys.a && !keys.s && !keys.d) {
 			moving = false;
 		}
 	}
 
-	function animate() {
+	function updatePosition() {
 		var delta = clock.getDelta(),
 			cos;
 
@@ -112,7 +113,10 @@
 
 			vrMouse.update(); //only need this if the world is animating
 		}
+	}
 
+	function animate() {
+		updatePosition();
 		vrControls.update();
 		vrEffect.render( scene, camera );
 
