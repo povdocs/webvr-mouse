@@ -32,7 +32,7 @@
 		moveVector = new THREE.Vector3(),
 		leftVector = new THREE.Vector3(),
 		scratchVector = new THREE.Vector3(),
-		leftRotateMatrix = new THREE.Matrix4().makeRotationAxis(new THREE.Vector3( 0, 1, 0 ), Math.PI / 2);
+		leftRotateMatrix = new THREE.Matrix4().makeRotationAxis(new THREE.Vector3( 0, 1, 0 ), Math.PI / 2),
 
 		lookTarget = new THREE.Vector3(),
 		lookLatitude = 0,
@@ -272,10 +272,6 @@
 	}
 
 	function init() {
-		var duration,
-			rec,
-			xhr;
-
 		initScene();
 
 		resize();
